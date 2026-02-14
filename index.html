@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eclipse</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #b9eaff 0%, #eefffd 100%);
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 24px;
+      }
+
+      .hero-font {
+        font-family: "Dancing Script", cursive;
+      }
+
+      /* Floating hearts */
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .petal {
+        position: fixed;
+        bottom: -10%;
+        pointer-events: none;
+        animation: float 10s linear infinite;
+      }
+
+      /* Envelope floating */
+      @keyframes floatCenter {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      #envelope {
+        animation: floatCenter 3s ease-in-out infinite;
+      }
+
+      /* Polaroid float left */
+      @keyframes floatLeftPolaroid {
+        0% {
+          transform: translateY(0) rotate(-5deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(-2deg);
+        }
+        100% {
+          transform: translateY(0) rotate(-5deg);
+        }
+      }
+
+      /* Polaroid float right */
+      @keyframes floatRightPolaroid {
+        0% {
+          transform: translateY(0) rotate(5deg);
+        }
+        50% {
+          transform: translateY(-15px) rotate(2deg);
+        }
+        100% {
+          transform: translateY(0) rotate(5deg);
+        }
+      }
+
+      .left-polaroid {
+        animation: floatLeftPolaroid 4s ease-in-out infinite;
+      }
+
+      .right-polaroid {
+        animation: floatRightPolaroid 4s ease-in-out infinite;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="petal-container"></div>
+
+    <!-- NAV -->
+    <nav
+      class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-xl glass px-8 py-4 flex justify-between items-center shadow-lg"
+    >
+      <div class="space-x-6 hidden md:block text-gray-600 font-medium">
+        <a href="#" class="hover:text-rose-400 transition">Home</a>
+        <a
+          onclick="openModal()"
+          class="hover:text-rose-400 transition cursor-pointer"
+          >Playlist</a
+        >
+        <a href="#notes" class="hover:text-rose-400 transition">Love Notes</a>
+      </div>
+
+      <button
+        onclick="openLetter()"
+        class="bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-600 transition shadow-md"
+      >
+        For You
+      </button>
+    </nav>
+
+    <!-- HERO -->
+    <section
+      class="relative h-screen flex flex-col justify-center items-center text-center px-4"
+    >
+      <!-- LEFT POLAROIDS -->
+      <div
+        class="absolute left-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col space-y-10"
+      >
+        <div
+          class="bg-white p-4 pb-10 shadow-xl rotate-[-8deg] w-48 left-polaroid"
+        >
+          <img src="1000110244.jpg" class="w-full h-40 object-cover" />
+        </div>
+        <div
+          class="bg-white p-4 pb-10 shadow-xl rotate-[6deg] w-48 left-polaroid"
+        >
+          <img src="1000110248.jpg" class="w-full h-40 object-cover" />
+        </div>
+        <div
+          class="bg-white p-4 pb-10 shadow-xl rotate-[-4deg] w-48 left-polaroid"
+        >
+          <img src="1000110246.jpg" class="w-full h-40 object-cover" />
+        </div>
+      </div>
+
+      <!-- RIGHT POLAROIDS -->
+      <div
+        class="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:flex flex-col space-y-10"
+      >
+        <div
+          class="bg-white p-4 pb-10 shadow-xl rotate-[8deg] w-48 right-polaroid"
+        >
+          <img src="1000110240.jpg" class="w-full h-40 object-cover" />
+        </div>
+        <div
+          class="bg-white p-4 pb-10 shadow-xl rotate-[-6deg] w-48 right-polaroid"
+        >
+          <img src="1000110242.jpg" class="w-full h-40 object-cover" />
+        </div>
+        <div
+          class="bg-white p-4 pb-10 shadow-xl rotate-[4deg] w-48 right-polaroid"
+        >
+          <img src="1000110241.jpg" class="w-full h-40 object-cover" />
+        </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <h2 class="hero-font text-7xl md:text-9xl text-gray-800 mb-6">
+        Happy Valentine's <br />
+        Day
+      </h2>
+
+      <p class="text-gray-500 max-w-md mx-auto mb-8">
+        Forever Grateful for you.
+      </p>
+      <br />
+      <br />
+      <div class="flex space-x-6">
+        <button
+          onclick="openGif()"
+          class="text-rose-400 font-semibold tracking-widest uppercase bg-rose-100 px-6 py-3 rounded-full hover:bg-rose-200 transition shadow-md text-2xl"
+        >
+          🧸
+        </button>
+        <button
+          onclick="openGift()"
+          class="text-rose-400 font-semibold tracking-widest uppercase bg-rose-100 px-6 py-3 rounded-full hover:bg-rose-200 transition shadow-md text-2xl"
+        >
+          🎁
+        </button>
+        <button
+          onclick="openFlower()"
+          class="text-rose-400 font-semibold tracking-widest uppercase bg-rose-100 px-6 py-3 rounded-full hover:bg-rose-200 transition shadow-md text-2xl"
+        >
+          🌹
+        </button>
+      </div>
+
+      <!-- TEDDY GIF MODAL -->
+      <div
+        id="gif-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div class="relative glass p-6 rounded-2xl shadow-2xl text-center">
+          <button
+            onclick="closeGif()"
+            class="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-2xl font-bold"
+          >
+            &times;
+          </button>
+          <h3 class="hero-font text-3xl text-gray-800 mb-4">🧸</h3>
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGlmcjl1ZjUzbms1cjN5YWR0emc2NHZ4dmkyYnB6Z2xhMnhwdGk3YyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/UhtyeG7rUP5Ifs5KpS/giphy.gif"
+            class="rounded-xl shadow-lg w-80 mx-auto"
+          />
+        </div>
+      </div>
+      <br />
+      <br />
+      <iframe
+        data-testid="embed-iframe"
+        style="border-radius: 12px"
+        src="https://open.spotify.com/embed/track/4rG3h1QwgjSSWz8EIjCFrm?utm_source=generator"
+        width="40%"
+        height="152"
+        frameborder="0"
+        allowfullscreen=""
+        allow="
+          autoplay;
+          clipboard-write;
+          encrypted-media;
+          fullscreen;
+          picture-in-picture;
+        "
+        loading="lazy"
+      ></iframe>
+
+      <!-- GIFT GIF MODAL -->
+      <div
+        id="gift-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div class="relative glass p-6 rounded-2xl shadow-2xl text-center">
+          <button
+            onclick="closeGift()"
+            class="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-2xl font-bold"
+          >
+            &times;
+          </button>
+          <h3 class="hero-font text-3xl text-gray-800 mb-4">🎁</h3>
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWNzOGM5Mmp0cGMwdjhkYzB3bG5ybG5maDM5dzdpMng0a2c3ZDhzdCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DCGbHmWx9ZIMDeFohQ/giphy.gif"
+            class="rounded-xl shadow-lg w-80 mx-auto"
+          />
+        </div>
+      </div>
+
+      <!-- FLOWER GIF MODAL -->
+      <div
+        id="flower-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      >
+        <div class="relative glass p-6 rounded-2xl shadow-2xl text-center">
+          <button
+            onclick="closeFlower()"
+            class="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-2xl font-bold"
+          >
+            &times;
+          </button>
+          <h3 class="hero-font text-3xl text-gray-800 mb-4">🌹</h3>
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3b2s5eDAxeGk3OXppcjFwZGZuOWNxZHJkbHlsdmc2ZXFqM2E3ZDU1OSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/mRvzQIDr0gHCz82SV0/giphy.gif"
+            class="rounded-xl shadow-lg w-80 mx-auto"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- LOVE NOTES -->
+    <section id="notes" class="py-20 px-6">
+      <div class="max-w-4xl mx-auto glass p-10 shadow-xl text-center">
+        <h3 class="hero-font text-5xl text-gray-800 mb-6">Why I Love You</h3>
+        <p id="note-display" class="italic text-xl text-gray-600 min-h-[80px]">
+          "Click the heart to see a reason..."
+        </p>
+        <button
+          onclick="generateNote()"
+          class="mt-8 bg-rose-100 p-6 rounded-full hover:scale-110 transition active:scale-95 shadow-inner"
+        >
+          ❤️
+        </button>
+      </div>
+    </section>
+
+    <!-- PLAYLIST MODAL -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="relative max-w-4xl w-full mx-4 glass p-6 rounded-2xl shadow-2xl"
+      >
+        <button
+          onclick="closeModal()"
+          class="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-2xl font-bold"
+        >
+          &times;
+        </button>
+        <h3 class="hero-font text-3xl text-gray-800 mb-4 text-center">
+          Playlist
+        </h3>
+        <iframe
+          style="border-radius: 12px"
+          src="https://open.spotify.com/embed/playlist/192va8ulIOFt025es11f9n"
+          width="100%"
+          height="352"
+          allow="
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            fullscreen;
+            picture-in-picture;
+          "
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- LOVE LETTER -->
+    <div
+      id="letter-overlay"
+      class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50"
+    >
+      <div class="relative flex flex-col items-center">
+        <button
+          onclick="closeLetter()"
+          class="absolute -top-12 right-0 text-white text-3xl font-bold hover:scale-110 transition"
+        >
+          &times;
+        </button>
+
+        <!-- Envelope -->
+        <div
+          id="envelope"
+          class="relative w-[32rem] h-80 bg-rose-100 rounded-2xl shadow-xl flex items-center justify-center cursor-pointer"
+          onclick="openEnvelope()"
+        >
+          <!-- Seal -->
+          <div
+            id="seal"
+            class="absolute w-14 h-14 bg-rose-400 rounded-full flex items-center justify-center text-white text-xl shadow-md transition-all duration-500"
+          >
+            ❤️
+          </div>
+
+          <!-- Expanding Letter -->
+          <div
+            id="letter"
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-72 bg-white rounded-xl shadow-2xl p-10 text-center scale-50 opacity-0 transition-all duration-700 ease-out"
+          >
+            <h3
+              class="hero-font text-3xl text-rose-400 absolute bottom-6 right-8"
+            >
+              -eng
+            </h3>
+            <p class="text-gray-600 leading-relaxed text-l">
+              Happy Valentine’s Deii! I just want you to know how much you mean
+              to me. Every day, you make my world brighter with your kindness,
+              and the way you always believe in me. Thank you for being my
+              support, my motivation, and my safe place. I feel so lucky to have
+              you in my life, and I can’t wait to make even more memories with
+              you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* Floating Hearts */
+      function createPetal() {
+        const container = document.getElementById("petal-container");
+        const petal = document.createElement("div");
+        petal.innerHTML = "❤️";
+        petal.className = "petal text-rose-300";
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.animationDuration = Math.random() * 5 + 5 + "s";
+        petal.style.fontSize = Math.random() * 20 + 10 + "px";
+        container.appendChild(petal);
+        setTimeout(() => petal.remove(), 10000);
+      }
+      setInterval(createPetal, 500);
+
+      /* Love Notes */
+      const notes = [
+        "You always know how to cheer me up.",
+        "Because she has a beautiful soul.",
+        "How you always know what I'm thinking.",
+        "The way you care about everyone.",
+        "You make me feel safe and appreciated.",
+      ];
+
+      function generateNote() {
+        const randomNote = notes[Math.floor(Math.random() * notes.length)];
+        document.getElementById("note-display").innerText = `"${randomNote}"`;
+      }
+
+      /* Playlist */
+      function openModal() {
+        document.getElementById("modal").classList.remove("hidden");
+      }
+      function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+      }
+
+      /* Letter */
+      function openLetter() {
+        document.getElementById("letter-overlay").classList.remove("hidden");
+      }
+      function closeLetter() {
+        document.getElementById("letter-overlay").classList.add("hidden");
+        const letter = document.getElementById("letter");
+        letter.classList.remove("scale-110");
+        letter.classList.add("scale-50", "opacity-0");
+        document.getElementById("seal").style.opacity = "1";
+      }
+
+      function openEnvelope() {
+        document.getElementById("seal").style.opacity = "0";
+        setTimeout(() => {
+          const letter = document.getElementById("letter");
+          letter.classList.remove("scale-50", "opacity-0");
+          letter.classList.add("scale-110");
+        }, 200);
+      }
+
+      /* GIF Modals */
+      function openGif() {
+        document.getElementById("gif-modal").classList.remove("hidden");
+      }
+      function closeGif() {
+        document.getElementById("gif-modal").classList.add("hidden");
+      }
+      function openGift() {
+        document.getElementById("gift-modal").classList.remove("hidden");
+      }
+      function closeGift() {
+        document.getElementById("gift-modal").classList.add("hidden");
+      }
+      function openFlower() {
+        document.getElementById("flower-modal").classList.remove("hidden");
+      }
+      function closeFlower() {
+        document.getElementById("flower-modal").classList.add("hidden");
+      }
+    </script>
+  </body>
+</html>
